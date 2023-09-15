@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,100&display=swap');
+
+body{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+header{
+    background-color: black;
+    padding: 30px;
+    color: white;
+    
+}
+
+header > div{
+    margin: auto;
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-between
+}
+
+
+header h1{
+    font-size: 20px;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+footer{
+    background-color: black;
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+.logo-container{
+    display: flex;
+    justify-content: flex-start;
+}
+
+main section{
+    display: flex;
+    justify-content: center;
+}
+
+section > div{
+    display: flex;
+    flex-direction: row;
+    max-width: 1200px;
+    padding: 40px;
+    margin: 40px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    justify-content: space-between; 
+}
+
+main hr{
+    width: 100%;
+    opacity: 0.5;
+}
+
+section > div div{
+    flex: 1; 
+    margin: 10px;
+    padding: 40px;
+}
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    font-weight: bold;
+    padding: 5px 0px;
+}
+
+input{
+    padding: 5px 0px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.274) ;
+}
+
+
+.input-btn{
+    background-color: blue;
+    font-weight: 700;
+    color: white;
+    width: 100px;
+    border-radius: 5px;
+    padding: 10px 0px;
+    margin-top: 10px;
+}
+
+.input-btn:hover{
+    cursor: pointer;
+    background-color: rgb(38, 38, 163);
+}
+
+.input-btn:active{
+    scale: 0.9;
+    transition: 0.2s;
+}
+
+table {
+    border-collapse: collapse; /* Mescla as bordas das células */
+    width: 100%; 
+}
+
+th, td {
+    border: 1px solid rgba(128, 128, 128, 0.5); 
+    padding: 20px; 
+}
+
+th {
+    background-color: #f2f2f2; 
+}
+

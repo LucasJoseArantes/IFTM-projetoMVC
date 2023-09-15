@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área de Login</title>
+    <link rel="stylesheet" href="lista.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="images/logo170x55.png" alt="Logo Microseg">
+            <!-- IMG 170X55 -->
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <div>
+                <div class="form-container">
+                    <h2>
+                        Já possui cadastro ?
+                    </h2>
+                    <hr>
+                    <p>
+                        Cadastre-se para nosso Newsletter e receba orfetas!
+                    </p>
+
+                    <form method="POST" class="login-form" action="cadastroPost">
+                        
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" name="name" required />
+
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required/>
+
+                        <label for="number">Telefone</label>
+                        <input type="number" id="number" name="number" required/>
+
+                        <input type="submit" id="submit" name="submit" class="input-btn" />
+                    </form>
+                </div>
+
+                <div>
+                    <h2>Ainda não possui conta? </h2>
+                    <hr>
+                    <p>
+                        Cadastre-se! Atendimento personalizado para
+                            CNPJ do segmento!
+                    
+                    </p>
+                    
+                        <p>Clique aqui para acessar a <a href=" ">página de cadastro.</a> </a></p> 
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        Desenvolvido por Lucas José
+    </footer>
+
+
+</body>
+
+</html>

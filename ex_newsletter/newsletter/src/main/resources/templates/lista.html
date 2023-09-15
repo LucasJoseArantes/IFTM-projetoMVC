@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Efetuado</title>
+    <link rel="stylesheet" href="lista.css">
+  </head>
+  <body>
+    <header>
+        <div>
+            <img th:src="@{/images/logo170x55.png}" alt="Logo Microseg">
+
+      <h1>Login efetuado com sucesso</h1>
+    </div>
+    </header>
+
+    <main>
+      <section>
+        <div>
+            <div class="form-container">
+                <h2>
+                    Já possui cadastro ?
+                </h2>
+                <hr>
+                <p>
+                    Cadastre-se para nosso Newsletter e receba orfetas!
+                </p>
+
+                <form method="POST" class="login-form" action="cadastroPost">
+                    
+                    <label for="name">Nome</label>
+                    <input type="text" id="name" name="name" required />
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required/>
+
+                    <label for="number">Telefone</label>
+                    <input type="number" id="number" name="number" required/>
+
+                    <input type="submit" id="submit" name="submit" class="input-btn" />
+                </form>
+            </div>
+
+        <div>
+          <table>
+            <thead>
+              <th scope="col"> Name</th>
+              <th scope="col"> Email</th>
+              <th scope="col"> Numero de telefone</th>
+            </thead>
+
+            <tbody>
+              <tr th:each="cadastro: ${cadastros}">
+                <td th:text="${cadastro.name}"></td>
+                <td th:text="${cadastro.email}"></td>
+                <td th:text="${cadastro.number}"></td>
+              </tr>
+            </tbody>
+
+          </table>
+          
+        </div>
+      </section>
+    </main>
+
+    <footer>Desenvolvido por Lucas José</footer>
+  </body>
+</html>
