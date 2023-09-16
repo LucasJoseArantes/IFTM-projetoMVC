@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Efetuado</title>
-    <link rel="stylesheet" href="lista.css">
-  </head>
-  <body>
-    <header>
-        <div>
-            <img th:src="@{/images/logo170x55.png}" alt="Logo Microseg">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Efetuado</title>
+  <link rel="stylesheet" href="lista.css">
+
+</head>
+
+<body>
+  <header>
+    <div>
+      <img th:src="@{/images/logo170x55.png}" alt="Logo Microseg">
 
       <h1>Login efetuado com sucesso</h1>
     </div>
-    </header>
+  </header>
 
-    <main>
-      <section>
-        <div>
-            <div class="form-container">
-                <h2>
-                    Já possui cadastro ?
-                </h2>
-                <hr>
-                <p>
-                    Cadastre-se para nosso Newsletter e receba orfetas!
-                </p>
+  <main>
+    <section>
+      <div>
+        <div class="form-container">
+          <h2>
+            Já possui cadastro ?
+          </h2>
+          <hr>
+          <p>
+            Cadastre-se para nosso Newsletter e receba orfetas!
+          </p>
 
-                <form method="POST" class="login-form" action="cadastroPost">
-                    
-                    <label for="name">Nome</label>
-                    <input type="text" id="name" name="name" required />
+          <form method="POST" class="login-form" action="cadastroPost">
 
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required/>
+            <label for="name">Nome</label>
+            <input type="text" id="nameF" name="name" required />
 
-                    <label for="number">Telefone</label>
-                    <input type="number" id="number" name="number" required/>
+            <label for="email">Email</label>
+            <input type="email" id="emailF" name="email" required />
 
-                    <input type="submit" id="submit" name="submit" class="input-btn" />
-                </form>
-            </div>
+            <label for="number">Telefone</label>
+            <input type="number" id="numberF" name="number" required />
+
+            <input type="submit" id="submitF" name="submit" class="input-btn" />
+          </form>
+        </div>
 
         <div>
           <table>
@@ -48,6 +51,8 @@
               <th scope="col"> Name</th>
               <th scope="col"> Email</th>
               <th scope="col"> Numero de telefone</th>
+              <th>Editar</th>
+              <th>Deletar</th>
             </thead>
 
             <tbody>
@@ -55,15 +60,119 @@
                 <td th:text="${cadastro.name}"></td>
                 <td th:text="${cadastro.email}"></td>
                 <td th:text="${cadastro.number}"></td>
+                <td>
+                  <!-- <a class="btn-edit" th:href="@{/cadastroUpdate(email=${cadastro.email})}">Editar</a> -->
+                  <a class="btn-edit" href="#" id="myBtn">Editar</a>
+
+
+                </td>
+
+                <td>
+                  <a class="btn-delete" th:href="@{/cadastroDelete(name=${cadastro.name})}">Excluir</a>
+                </td>
+
               </tr>
             </tbody>
 
           </table>
-          
-        </div>
-      </section>
-    </main>
 
-    <footer>Desenvolvido por Lucas José</footer>
-  </body>
+        </div>
+    </section>
+
+
+
+
+    <div id="myModal" class="modal">
+
+      <div class="modal-content">
+        <span class="close"> X</span>
+        <h1>Edite as informações</h1>
+        <form method="POST" class="login-form" action="cadastroPost">
+
+          <label for="name">Nome</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="number">Telefone</label>
+          <input type="number" id="number" name="number" required />
+
+          <input type="submit" id="submit" name="submit" class="input-btn" />
+
+
+        </form>
+      </div>
+
+    </div>
+
+    <style>
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        max-width: 600px;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
+
+    <script>
+      // Chama o modal
+      var modal = document.getElementById("myModal");
+
+      // Chama o btn Enviar
+      var btn = document.getElementById("myBtn");
+
+      // Chama span X para fechar o modal
+      var span = document.getElementsByClassName("close")[0];
+
+      // Ação para o Editar abrir o modal
+      btn.onclick = function () {
+        modal.style.display = "block";
+      }
+
+      // Fecha o modal quando clicar no span 
+      span.onclick = function () {
+        modal.style.display = "none";
+      }
+
+      // Clica fora do modal fecha ele
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    </script>
+  </main>
+
+  <footer>Desenvolvido por Lucas José</footer>
+</body>
+
 </html>

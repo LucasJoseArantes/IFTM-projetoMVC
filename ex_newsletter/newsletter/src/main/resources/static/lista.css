@@ -44,7 +44,7 @@ main section{
 
 section > div{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     max-width: 1200px;
     padding: 40px;
     margin: 40px;
@@ -71,6 +71,7 @@ section > div div{
 .login-form{
     display: flex;
     flex-direction: column;
+    width: 600px;
 }
 
 label{
@@ -85,7 +86,8 @@ input{
 }
 
 
-.input-btn{
+.input-btn, .btn-edit , 
+.btn-delete{
     background-color: blue;
     font-weight: 700;
     color: white;
@@ -95,27 +97,51 @@ input{
     margin-top: 10px;
 }
 
-.input-btn:hover{
+.input-btn:hover, .btn-edit:hover, .btn-delete:hover{
     cursor: pointer;
     background-color: rgb(38, 38, 163);
 }
 
-.input-btn:active{
+.input-btn:active , .btn-edit:active, .btn-delete:active{
     scale: 0.9;
     transition: 0.2s;
 }
 
 table {
     border-collapse: collapse; /* Mescla as bordas das células */
-    width: 100%; 
 }
 
 th, td {
     border: 1px solid rgba(128, 128, 128, 0.5); 
-    padding: 20px; 
+    padding: 15px 10px; 
 }
 
 th {
     background-color: #f2f2f2; 
 }
 
+.btn-table{
+    border: none;
+    display: flex;
+    flex-direction: column;
+    margin-left: 0px;
+    padding-right: 0px;
+}
+
+.btn-edit, .btn-delete{
+    margin: 5px;
+    padding: 10px;
+    margin: 10px;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+.btn-edit , 
+.btn-delete{
+    border: none;
+    width: fit-content;
+}
