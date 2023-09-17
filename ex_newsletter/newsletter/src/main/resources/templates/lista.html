@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login Efetuado</title>
-  <link rel="stylesheet" href="lista.css">
+
+  <link rel="stylesheet" th:href="@{/lista.css}">
 
 </head>
 
@@ -30,41 +31,61 @@
             Cadastre-se para nosso Newsletter e receba orfetas!
           </p>
 
-          <form method="POST" class="login-form" action="cadastroPost">
+          <form method="POST" class="login-form" action="cadastroPost" th:object="${cadastro}">
 
             <label for="name">Nome</label>
-            <input type="text" id="name" name="name" required />
+            <input type="text" name="name" th:value="${cadastro.name}" required />
 
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" required />
+            <input type="email" name="email" required />
 
             <label for="number">Telefone</label>
-            <input type="number" id="number" name="number" required />
+            <input type="number" name="number"  required />
 
-            <input type="submit" id="submit" name="submit" class="input-btn" />
+            <input type="submit" name="submit" class="input-btn" />
           </form>
         </div>
 
+        <!-- Modal for Editing User Information -->
+        <div id="myModal" class="modal" th:object="${cadastro}">
+
+          <div class="modal-content">
+            <span class="close"> X</span>
+            <h1>Edite as informações</h1>
+
+            <form method="post" class="login-form" action="cadastroPost" th:object="${cadastro}">
+              <label for="name">Nome</label>
+              <input type="text" name="name" required />
+
+              <label for="email">Email</label>
+              <input type="email" name="email" required />
+
+              <label for="number">Telefone</label>
+              <input type="number" name="number" required />
+
+              <input type="submit" name="submit" class="input-btn" />
+            </form>
+          </div>
+        </div>
+
         <div>
+
           <table>
             <thead>
               <th scope="col"> Name</th>
               <th scope="col"> Email</th>
               <th scope="col"> Numero de telefone</th>
-              <th>Editar</th>
-              <th>Deletar</th>
+              <th scope="col"> Editar</th>
+              <th scope="col"> Deletar</th>
             </thead>
 
             <tbody>
-              <tr th:each="cadastro: ${cadastros}">
-                <td th:text="${cadastro.name}"></td>
-                <td th:text="${cadastro.email}"></td>
-                <td th:text="${cadastro.number}"></td>
+              <tr data-th-each="cadastro : ${cadastros}">
+                <td data-th-text="${cadastro.name}"></td>
+                <td data-th-text="${cadastro.email}"></td>
+                <td data-th-text="${cadastro.number}"></td>
                 <td>
                   <a class="btn-edit" id="myBtn">Editar</a>
-
-
-
                 </td>
 
                 <td>
@@ -78,34 +99,6 @@
 
         </div>
     </section>
-
-
-
-    <!-- MODEL  -->
-    <div id="myModal" class="modal">
-
-      <div class="modal-content" th:each="cadastro: ${cadastros}" >
-        <span class="close"> X</span>
-        <h1>Edite as informações</h1>
-
-        <!-- edit-form.html -->
-        <form method="post" class="login-form" action="cadastroUpdate" >
-          <label for="nameModel">Nome</label>
-          <input type="text" id="nameModel" name="nameModel" th:value="${cadastro.name}" required />
-      
-          <label for="emailModel">Email</label>
-          <input type="email" id="emailModel" name="emailModel" th:value="${cadastro.email}" required />
-      
-          <label for="numberModel">Telefone</label>
-          <input type="number" id="numberModel" name="numberModel" th:value="${cadastro.number}" required />
-      
-          <input class="input-btn" type="submit" value="Salvar">
-      </form>
-      
-      </div>
-
-    </div>
-
     <style>
       .modal {
         display: none;
@@ -173,7 +166,7 @@
       };
     </script>
 
-   
+
   </main>
 
   <footer>Desenvolvido por Lucas José</footer>

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-NewsletterApplication<newsletter>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "lucas.jose.br.com.newsletter.NewsletterApplication",
+            "projectName": "newsletter",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
