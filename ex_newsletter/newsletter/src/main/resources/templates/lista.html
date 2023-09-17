@@ -33,15 +33,15 @@
           <form method="POST" class="login-form" action="cadastroPost">
 
             <label for="name">Nome</label>
-            <input type="text" id="nameF" name="name" required />
+            <input type="text" id="name" name="name" required />
 
             <label for="email">Email</label>
-            <input type="email" id="emailF" name="email" required />
+            <input type="email" id="email" name="email" required />
 
             <label for="number">Telefone</label>
-            <input type="number" id="numberF" name="number" required />
+            <input type="number" id="number" name="number" required />
 
-            <input type="submit" id="submitF" name="submit" class="input-btn" />
+            <input type="submit" id="submit" name="submit" class="input-btn" />
           </form>
         </div>
 
@@ -61,8 +61,8 @@
                 <td th:text="${cadastro.email}"></td>
                 <td th:text="${cadastro.number}"></td>
                 <td>
-                  <!-- <a class="btn-edit" th:href="@{/cadastroUpdate(email=${cadastro.email})}">Editar</a> -->
-                  <a class="btn-edit" href="#" id="myBtn">Editar</a>
+                  <a class="btn-edit" id="myBtn">Editar</a>
+
 
 
                 </td>
@@ -81,27 +81,27 @@
 
 
 
-
+    <!-- MODEL  -->
     <div id="myModal" class="modal">
 
-      <div class="modal-content">
+      <div class="modal-content" th:each="cadastro: ${cadastros}" >
         <span class="close"> X</span>
         <h1>Edite as informações</h1>
-        <form method="POST" class="login-form" action="cadastroPost">
 
-          <label for="name">Nome</label>
-          <input type="text" id="name" name="name" required />
-
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
-
-          <label for="number">Telefone</label>
-          <input type="number" id="number" name="number" required />
-
-          <input type="submit" id="submit" name="submit" class="input-btn" />
-
-
-        </form>
+        <!-- edit-form.html -->
+        <form method="post" class="login-form" action="cadastroUpdate" >
+          <label for="nameModel">Nome</label>
+          <input type="text" id="nameModel" name="nameModel" th:value="${cadastro.name}" required />
+      
+          <label for="emailModel">Email</label>
+          <input type="email" id="emailModel" name="emailModel" th:value="${cadastro.email}" required />
+      
+          <label for="numberModel">Telefone</label>
+          <input type="number" id="numberModel" name="numberModel" th:value="${cadastro.number}" required />
+      
+          <input class="input-btn" type="submit" value="Salvar">
+      </form>
+      
       </div>
 
     </div>
@@ -147,29 +147,33 @@
       // Chama o modal
       var modal = document.getElementById("myModal");
 
-      // Chama o btn Enviar
-      var btn = document.getElementById("myBtn");
+      // Chama todos os botões com a classe "btn-edit"
+      var btns = document.getElementsByClassName("btn-edit");
 
       // Chama span X para fechar o modal
       var span = document.getElementsByClassName("close")[0];
 
-      // Ação para o Editar abrir o modal
-      btn.onclick = function () {
-        modal.style.display = "block";
+      // Adicione um evento de clique a cada botão
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].onclick = function () {
+          modal.style.display = "block";
+        };
       }
 
       // Fecha o modal quando clicar no span 
       span.onclick = function () {
         modal.style.display = "none";
-      }
+      };
 
       // Clica fora do modal fecha ele
       window.onclick = function (event) {
         if (event.target == modal) {
           modal.style.display = "none";
         }
-      }
+      };
     </script>
+
+   
   </main>
 
   <footer>Desenvolvido por Lucas José</footer>
