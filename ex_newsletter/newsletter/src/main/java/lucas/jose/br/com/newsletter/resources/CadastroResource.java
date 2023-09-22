@@ -2,7 +2,6 @@ package lucas.jose.br.com.newsletter.resources;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,17 +38,14 @@ public class CadastroResource {
     ) {
         for (CadastroDto cadastro : cadastros) {
             if (cadastro.getName().equals(oldName)) {
-                cadastro.setName(newName); // Atualiza o nome com o novo valor
-                cadastro.setEmail(newEmail); // Atualiza o email com o novo valor
-                cadastro.setNumber(newTel); // Atualiza o telefone com o novo valor
-                break; // Sai do loop assim que o registro é encontrado e atualizado
+                cadastro.setName(newName); 
+                cadastro.setEmail(newEmail); 
+                cadastro.setNumber(newTel); 
+                break; 
             }
         }
     
-        // model.addAttribute("cadastros", cadastros);
-        // return "lista";
-        model.addAttribute("cadastros", cadastros);
-        return "lista";
+        return doGet(model);
     }
 
     @RequestMapping("cadastroDelete")
