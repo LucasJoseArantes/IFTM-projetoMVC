@@ -90,35 +90,6 @@
         </div>
 
        
-          <table>
-            <thead>
-              <th scope="col"> # </th>
-              <th scope="col"> Name</th>
-              <th scope="col"> Email</th>
-              <th scope="col"> Numero de telefone</th>
-              <th scope="col"> Editar</th>
-              <th scope="col"> Deletar</th>
-            </thead>
-
-            <tbody>
-              <tr data-th-each="cadastro : ${cadastros}">
-                <td data-th-text="${cadastro.id}"> </td>
-                <td data-th-text="${cadastro.name}"></td>
-                <td data-th-text="${cadastro.email}"></td>
-                <td data-th-text="${cadastro.number}"></td>
-                <td>
-                  <a class="edit-btn" href="index.html"> Editar </a>
-                </td>
-
-                <td>
-                  <a class="btn-delete" th:href="@{/cadastroDelete(name=${cadastro.name})}">Excluir</a>
-                </td>
-
-              </tr>
-            </tbody>
-
-          </table>
-        </div> -->
 
         <table class="table">
           <thead>
