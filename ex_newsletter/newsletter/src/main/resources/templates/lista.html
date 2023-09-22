@@ -5,8 +5,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login Efetuado</title>
-
   <link rel="stylesheet" th:href="@{/lista.css}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 
@@ -15,7 +21,7 @@
     <div>
       <img th:src="@{/images/logo170x55.png}" alt="Logo Microseg">
 
-      <h1>Login efetuado com sucesso</h1>
+      <h1>Cadastro efetuado com sucesso</h1>
     </div>
   </header>
 
@@ -32,46 +38,61 @@
           </p>
 
           <form method="POST" class="login-form" action="cadastroPost" th:object="${cadastro}">
-
+            <input type="hidden" name="id" />
             <label for="name">Nome</label>
-            <input type="text" name="name" th:value="${cadastro.name}" required />
+            <input type="text" name="name" required />
 
             <label for="email">Email</label>
             <input type="email" name="email" required />
 
             <label for="number">Telefone</label>
-            <input type="number" name="number"  required />
+            <input type="number" name="number" required />
 
             <input type="submit" name="submit" class="input-btn" />
           </form>
         </div>
 
-        <!-- Modal for Editing User Information -->
-        <div id="myModal" class="modal" th:object="${cadastro}">
-
-          <div class="modal-content">
-            <span class="close"> X</span>
-            <h1>Edite as informações</h1>
-
-            <form method="post" class="login-form" action="cadastroPost" th:object="${cadastro}">
-              <label for="name">Nome</label>
-              <input type="text" name="name" required />
-
-              <label for="email">Email</label>
-              <input type="email" name="email" required />
-
-              <label for="number">Telefone</label>
-              <input type="number" name="number" required />
-
-              <input type="submit" name="submit" class="input-btn" />
-            </form>
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Cadastro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="editForm" action="#" method="post">
+                  <div class="mb-3">
+                    <label for="editNome" class="form-label">Novo Nome</label>
+                    <input type="text" class="form-control" id="editNome" name="editNome"
+                      placeholder="Insira o Novo Nome">
+                  </div>
+                  <div class="mb-3">
+                    <label for="editEmail" class="form-label">Novo Email</label>
+                    <input type="email" class="form-control" id="editEmail" name="editEmail"
+                      placeholder="Insira o Novo Email">
+                  </div>
+                  <div class="mb-3">
+                    <label for="editTel" class="form-label">Novo Telefone</label>
+                    <input type="tel" class="form-control" id="editTel" name="editTel"
+                      placeholder="Insira o Novo Telefone">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="saveChanges">Salvar</button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div>
-
+        <!-- <div>
           <table>
             <thead>
+              <th scope="col"> # </th>
               <th scope="col"> Name</th>
               <th scope="col"> Email</th>
               <th scope="col"> Numero de telefone</th>
@@ -81,11 +102,12 @@
 
             <tbody>
               <tr data-th-each="cadastro : ${cadastros}">
+                <td data-th-text="${cadastro.id}"> </td>
                 <td data-th-text="${cadastro.name}"></td>
                 <td data-th-text="${cadastro.email}"></td>
                 <td data-th-text="${cadastro.number}"></td>
                 <td>
-                  <a class="btn-edit" id="myBtn">Editar</a>
+                  <a class="edit-btn" href="index.html"> Editar </a>
                 </td>
 
                 <td>
@@ -96,75 +118,104 @@
             </tbody>
 
           </table>
+        </div> -->
 
-        </div>
+        <table class="table">
+          <thead>
+              <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Telefone</th>
+                  <th scope="col">Ações</th>
+                  <th scope="col">Ações</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr th:each="cadastro, rowStat : ${cadastros}" id="row-[[${rowStat.index}]]">
+                  <td>
+                      <span class="cadastro-nome" th:text="${cadastro.Name}"></span>
+                      <input type="text" class="form-control edit-input" name="novoNome" placeholder="Novo Nome" style="display: none;">
+                  </td>
+                  <td class="cadastro-email" th:text="${cadastro.Email}"></td>
+                  <td class="cadastro-tel" th:text="${cadastro.Number}"></td>
+                  <td>
+                      <button type="button" class="btn btn-primary edit-button" data-toggle="modal" data-target="#editModal" data-name="${cadastro.Name}" data-email="${cadastro.Email}" data-tel="${cadastro.Number}">
+                          Editar
+                      </button>
+                  </td>
+                  <td>
+                      <button type="button" class="btn btn-primary">
+                          <a th:href="@{cadastroDelete(name=${cadastro.Name})}" style="color: white; text-decoration: none;">Excluir</a>
+                      </button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  
+      <!-- JavaScript para manipulação do pop-up de edição -->
+      <script>
+          $(document).ready(function () {
+              let name, email, tel; // Variáveis para armazenar os valores iniciais
+  
+              $('.edit-button').click(function () {
+                  name = $(this).closest('tr').find('.cadastro-nome').text();
+                  email = $(this).closest('tr').find('.cadastro-email').text();
+                  tel = $(this).closest('tr').find('.cadastro-tel').text();
+  
+                  $('#editModal #editNome').val(name);
+                  $('#editModal #editEmail').val(email);
+                  $('#editModal #editTel').val(tel);
+  
+                  $('#editModal').modal('show');
+              });
+  
+              $('#editModal button[data-dismiss="modal"]').click(function () {
+                  $('#editModal').modal('hide');
+              });
+  
+              $('#saveChanges').click(function () {
+                  const newName = $('#editNome').val();
+                  const newEmail = $('#editEmail').val();
+                  const newTel = $('#editTel').val();
+  
+                  // Atualiza a URL atual para incluir o caminho para o endpoint de atualização
+                  window.location.href = '/cadastroResourceUpdate?oldName=' + name + '&newName=' + newName + '&oldEmail=' + email + '&newEmail=' + newEmail + '&oldTel=' + tel + '&newTel=' + newTel;
+  
+                  // Solicitação AJAX para o controlador de atualização
+                  $.ajax({
+                      url: '/cadastroResourceUpdate',
+                      type: 'POST',
+                      data: {
+                          oldName: name,
+                          newName: newName,
+                          oldEmail: email,
+                          newEmail: newEmail,
+                          oldTel: tel,
+                          newTel: newTel,
+                      },
+                      success: function (response) {
+                          // Atualiza a tabela com os valores atualizados
+                          $('#editModal').modal('hide');
+                          updateTableRow(name, newName, newEmail, newTel);
+                          location.reload();
+                      },
+                      error: function () {
+                          // Lida com erros, se houver algum
+                          alert('Ocorreu um erro ao atualizar o cadastro.');
+                      }
+                  });
+              });
+  
+              function updateTableRow(oldName, newName, newEmail, newTel) {
+                  const row = $('#row-' + oldName); // Use oldName em vez de name
+                  row.find('.cadastro-nome').text(newName);
+                  row.find('.cadastro-email').text(newEmail);
+                  row.find('.cadastro-tel').text(newTel);
+              }
+          });
+      </script>
+      </div>
     </section>
-    <style>
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4);
-      }
-
-      .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        max-width: 600px;
-      }
-
-      .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-      }
-
-      .close:hover,
-      .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-      }
-    </style>
-
-    <script>
-      // Chama o modal
-      var modal = document.getElementById("myModal");
-
-      // Chama todos os botões com a classe "btn-edit"
-      var btns = document.getElementsByClassName("btn-edit");
-
-      // Chama span X para fechar o modal
-      var span = document.getElementsByClassName("close")[0];
-
-      // Adicione um evento de clique a cada botão
-      for (var i = 0; i < btns.length; i++) {
-        btns[i].onclick = function () {
-          modal.style.display = "block";
-        };
-      }
-
-      // Fecha o modal quando clicar no span 
-      span.onclick = function () {
-        modal.style.display = "none";
-      };
-
-      // Clica fora do modal fecha ele
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      };
-    </script>
 
 
   </main>

@@ -5,11 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import lucas.jose.br.com.newsletter.dto.CadastroDto;
 
@@ -30,6 +27,31 @@ public class CadastroResource {
         return "lista";
     }
 
+    @RequestMapping("cadastroResourceUpdate")
+    public String doUpdate(
+        Model model,
+        String oldName,
+        String newName,
+        String oldEmail,
+        String newEmail,
+        String oldTel,
+        String newTel
+    ) {
+        for (CadastroDto cadastro : cadastros) {
+            if (cadastro.getName().equals(oldName)) {
+                cadastro.setName(newName); // Atualiza o nome com o novo valor
+                cadastro.setEmail(newEmail); // Atualiza o email com o novo valor
+                cadastro.setNumber(newTel); // Atualiza o telefone com o novo valor
+                break; // Sai do loop assim que o registro é encontrado e atualizado
+            }
+        }
+    
+        // model.addAttribute("cadastros", cadastros);
+        // return "lista";
+        model.addAttribute("cadastros", cadastros);
+        return "lista";
+    }
+
     @RequestMapping("cadastroDelete")
     public String doDelete(Model model, String name) {
 
@@ -42,6 +64,4 @@ public class CadastroResource {
 
         return doGet(model);
     }
-    
-
 }

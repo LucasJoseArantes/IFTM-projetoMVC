@@ -57,11 +57,11 @@ main hr{
     opacity: 0.5;
 }
 
-section > div div{
+/* section > div div{
     flex: 1; 
     margin: 10px;
     padding: 40px;
-}
+} */
 
 .form-container{
     display: flex;
@@ -128,20 +128,17 @@ th {
     padding-right: 0px;
 }
 
-.btn-edit, .btn-delete{
-    margin: 5px;
-    padding: 10px;
-    margin: 10px;
-}
-
 a{
     text-decoration: none;
     color: white;
     font-size: 14px;
 }
 
-.btn-edit , 
+/* .btn-edit , 
 .btn-delete{
+     margin: 5px;
+    padding: 10px;
+    margin: 10px;
     border: none;
     width: fit-content;
-}
+} */
