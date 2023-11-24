@@ -24,7 +24,7 @@ public class ContatoDao {
                 res.getString("email"),
                 res.getString("cpf_cnpj")
             );
-        });
+        }); testeee
     }
 
     public List<Contato> getContatos(String nome) {
