@@ -23,6 +23,13 @@ public class ContatoController {
         return "contatosList";
     }
 
+    @RequestMapping("login")
+    public String getLogin(Model model) {
+        model.addAttribute("contato",new Contato());
+        model.addAttribute("contatos",dao.getContatos());
+        return "contatosLogin";
+    }
+
     @PostMapping("contatos")
     public String inserirContatos(Contato contato,Model model) {
         Contato contatoDb = dao.getContato(contato.getEmail());
