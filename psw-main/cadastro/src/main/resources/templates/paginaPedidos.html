@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f0f0f0;
+        }
+    
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px 0px #aaa;
+        }
+    
+        .login-title {
+            text-align: center;
+            font-size: 36px;
+        }
+
+        .forgot-password-link {
+            display: block;
+            margin: 10px 0px;
+        }
+
+        .signup-link {
+            margin-top: 15px;
+        }
+
+        .form-label{
+            margin-top: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container mt-3">  
+        <h1 class="">Gerador de Pedidos</h1>
+    </div>
+    <div class="container mt-5 ">
+        <div class="row">
+            <div class="col-md-6 xl-1">
+                <form id="pedidosForm" method="POST" action="/pedidos/inserir" class="mb-3">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="valorPedido" class="form-label">Valor do Pedido</label>
+                            <input type="text" class="form-control" id="valorPedido" name="valorPedido" aria-describedby="valorPedido" placeholder="R$">
+                        </div>
+                    
+                        
+
+                        <div class="col-md-6">
+                            <label for="dataPedido" class="form-label">Data do Pedido</label>
+                            <input type="date" class="form-control" id="dataPedido" name="dataPedido">
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary" id="valorBtn">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- <div class="col-md-6">
+            <form th:action="@{/contatos/pesquisar}" class="mb-3">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="nomePesquisa" class="form-label">Identificador do Pedido</label>
+                        <input type="text" class="form-control" id="nomePesquisa" th:name="nome"
+                            placeholder="Insira o pedido que deseja buscar">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Pesquisar</button>
+                    </div>
+                </div>
+            </form>
+        </div> -->
+    </div>
+
+    <div class="container mt-3">
+      <table class="table">
+          <thead>
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Valor do Pedido</th>
+                  <th scope="col">Data do Pedido</th>
+                  <th scope="col">Nome do Cliente</th>
+                  <th scope="col">Email do Cliente</th>
+                  <th scope="col">Ação</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr th:each="pedidos : ${pedidos}">
+                  <td th:text="${pedidos.idPedido}"></td>
+                  <td th:text="${pedidos.valorPedido}"></td>
+                  <td th:text="${#dates.format(pedidos.dataPedido, 'dd/MM/yyyy')}"></td>
+
+                  <!-- <td th:text="${contatos.nome}"></td>
+                  <td th:text="${contatos.email}"></td> -->
+                  
+                  <!-- <td>
+                      <a th:href="@{'/contatos/editar/' + ${contatos.email}}"
+                          class="btn btn-primary btn-sm">Editar</a>
+                      <form method="post" th:action="@{'/contatos/excluir/' + ${contatos.email}}" style="display: inline;">
+                          <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                      </form>
+                  </td> -->
+              </tr>
+          </tbody>
+      </table>
+  </div>  
+</body>
+
+<script>
+    window.addEventListener("DOMContentLoaded", function(){
+        // Adiciona um ouvinte de evento ao formulário
+        document.getElementById("pedidosForm").addEventListener("submit", function(event) {
+            // Evita que o formulário seja enviado automaticamente
+            event.preventDefault();
+
+            // Obtém o valor do campo de input de data
+            var dataInput = document.getElementById("dataPedido");
+            const dataSelecionada = dataInput.value.trim();
+
+            // Se a data não foi selecionada, define a data de hoje
+            if (dataSelecionada === "") {
+                const hoje = new Date();
+                const ano = hoje.getFullYear();
+                let mes = hoje.getMonth() + 1;
+                if (mes < 10) {
+                    mes = "0" + mes;
+                }
+                let dia = hoje.getDate();
+                if (dia < 10) {
+                    dia = "0" + dia;
+                }
+                const hojeFormatado = `${ano}-${mes}-${dia}`;
+                dataInput.value = hojeFormatado;
+            }
+
+            // Obtém o valor do campo de input
+            var input = document.getElementById("valorPedido");
+            const valor = input.value.trim();
+
+            // Regex para aceitar apenas números e ponto
+            const regex = /^[0-9.]+$/;
+
+            if (valor === "") {
+                alert("O campo não pode estar vazio.");
+            } else if (!regex.test(valor)) {
+                alert("Formato inválido. Use apenas números e ponto.");
+            } else {
+                // Se a validação for bem-sucedida, submit o formulário manualmente
+                this.submit();
+            }
+        });
+    });
+</script>
+</html>

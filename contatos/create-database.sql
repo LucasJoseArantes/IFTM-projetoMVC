@@ -3,14 +3,18 @@ create database dbContatos;
 use dbContatos;
 
 create table tb_contato(
-	email varchar(255) primary key,
-	nome varchar(255) ,
-	cpf_cnpj VARCHAR(18)
+
+email varchar(255) primary key,
+
+nome varchar(255)
+
 );
 
-insert into tb_contato values ('user01@gmail.com', 'Usuario 01', '123.456.789.10');
-insert into tb_contato values ('user02@outlook.com', 'Usuario 02', '987.231.654.50');
-insert into tb_contato values ('grande@empresa.com', 'Empresa Grande', '78.854.811-0001-40');
+insert into tb_contato values ('carloseduardodantas@iftm.edu.br','Carlos Eduardo');
+
+insert into tb_contato values ('angoti@iftm.edu.br','Edson Angoti');
+
+select email,nome from tb_contato;
 
 create table tb_login( 
    usuario varchar(255) primary key,
@@ -33,3 +37,6 @@ create table tb_role_user (
    foreign key(usuario) references tb_login(usuario),
    foreign key(role_id) references tb_role(id)
 );
+
+-- insert into tb_role_user(usuario,role_id) values ('teste',1);
+-- insert into tb_role_user(usuario,role_id) values ('teste1',2);
