@@ -72,7 +72,7 @@
                       <form method="post" th:action="@{'/contatos/excluir/' + ${contatos.email}}" style="display: inline;">
                           <button type="submit" class="btn btn-outline-danger btn-sm">Excluir</button>
                       </form>
-                      <a th:href="@{'/pedidos'}"
+                      <a th:href="@{'/pedidos/' + ${contatos.email}}"
                             class="btn btn-outline-success btn-sm">Pedidos
                       </a>
                     

@@ -44,18 +44,21 @@
     <div class="container mt-5 ">
         <div class="row">
             <div class="col-md-6 xl-1">
-                <form id="pedidosForm" method="POST" action="/pedidos/inserir" class="mb-3">
+                <form id="pedidosForm" method="POST" action="/pedidos/${email}/inserir" class="mb-3">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="valorPedido" class="form-label">Valor do Pedido</label>
                             <input type="text" class="form-control" id="valorPedido" name="valorPedido" aria-describedby="valorPedido" placeholder="R$">
                         </div>
                     
-                        
-
                         <div class="col-md-6">
                             <label for="dataPedido" class="form-label">Data do Pedido</label>
                             <input type="date" class="form-control" id="dataPedido" name="dataPedido">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="email_contato" class="form-label">Email do Cliente</label>
+                            <input type="email" class="form-control" id="email_contato" name="email_contato" th:value="${email}">
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary" id="valorBtn">Enviar</button>
@@ -83,31 +86,20 @@
     <div class="container mt-3">
       <table class="table">
           <thead>
-              <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Valor do Pedido</th>
-                  <th scope="col">Data do Pedido</th>
-                  <th scope="col">Nome do Cliente</th>
-                  <th scope="col">Email do Cliente</th>
-                  <th scope="col">Ação</th>
-              </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Valor do Pedido</th>
+                    <th scope="col">Data do Pedido</th>
+                    <th scope="col">Email do Cliente</th>
+                </tr>
           </thead>
           <tbody>
               <tr th:each="pedidos : ${pedidos}">
                   <td th:text="${pedidos.idPedido}"></td>
                   <td th:text="${pedidos.valorPedido}"></td>
                   <td th:text="${#dates.format(pedidos.dataPedido, 'dd/MM/yyyy')}"></td>
+                  <td th:text="${pedidos.email_contato}" id="tb_email_contato"></td>
 
-                  <!-- <td th:text="${contatos.nome}"></td>
-                  <td th:text="${contatos.email}"></td> -->
-                  
-                  <!-- <td>
-                      <a th:href="@{'/contatos/editar/' + ${contatos.email}}"
-                          class="btn btn-primary btn-sm">Editar</a>
-                      <form method="post" th:action="@{'/contatos/excluir/' + ${contatos.email}}" style="display: inline;">
-                          <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
-                      </form>
-                  </td> -->
               </tr>
           </tbody>
       </table>
@@ -116,6 +108,14 @@
 
 <script>
     window.addEventListener("DOMContentLoaded", function(){
+
+        // // Obtém o valor do campo de input de e-mail do modelo Thymeleaf
+        // var emailTabela = document.getElementById("tb_email_contato");
+        // const emailContato = emailTabela.textContent.trim();
+
+        // // Preenche o campo de input de e-mail do formulário com o valor do modelo Thymeleaf
+        // document.getElementById("email_contato").value = emailContato;
+        
         // Adiciona um ouvinte de evento ao formulário
         document.getElementById("pedidosForm").addEventListener("submit", function(event) {
             // Evita que o formulário seja enviado automaticamente
@@ -158,5 +158,6 @@
             }
         });
     });
+
 </script>
 </html>

@@ -17,4 +17,5 @@ import org.springframework.format.annotation.DateTimeFormat;
         
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         private Date dataPedido;
+        private String email_contato;
     }

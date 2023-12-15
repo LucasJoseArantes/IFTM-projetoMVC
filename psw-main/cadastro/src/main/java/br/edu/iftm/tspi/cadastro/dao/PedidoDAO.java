@@ -18,17 +18,15 @@ public class PedidoDAO {
     private JdbcTemplate jdbcTemplate;
 
     // Consulta todos os Pedidos
-    public List<Pedido> listarPedidos() {
-        String sql = "SELECT idPedido, valorPedido, dataPedido FROM tb_pedido";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Pedido.class));
+    public List<Pedido> listarPedidos(String email) {
+        String sql = "SELECT idPedido, valorPedido, dataPedido, email_contato FROM tb_pedido WHERE email_contato = ?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Pedido.class), email);
     }
 
     // Insere um novo Pedido
     public void inserirPedido(Pedido Pedido) throws DataAccessException {
-        String sql = "INSERT INTO tb_pedido (idPedido, valorPedido, dataPedido) VALUES (?, ?, ?)";
-
-        
-        jdbcTemplate.update(sql, Pedido.getIdPedido(), Pedido.getValorPedido(), Pedido.getDataPedido());
+        String sql = "INSERT INTO tb_pedido (idPedido, valorPedido, dataPedido, email_contato) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, Pedido.getIdPedido(), Pedido.getValorPedido(), Pedido.getDataPedido(), Pedido.getEmail_contato());
     }
 
     // Busca Pedidos pelo nome
@@ -38,7 +36,7 @@ public class PedidoDAO {
     }
 
     public void atualizarpedido(Pedido pedido) throws DataAccessException {
-        String sql = "UPDATE tb_pedido SET valorPedido = ?, dataPedido = ?, WHERE idPedido = ?";
+        String sql = "UPDATE tb_pedido SET valorPedido = ?, dataPedido = ? WHERE idPedido = ?";
         jdbcTemplate.update(sql, pedido.getValorPedido(), pedido.getDataPedido(), pedido.getIdPedido());
     }
 
@@ -49,7 +47,7 @@ public class PedidoDAO {
     }
 
     // Busca um pedido pelo email
-    public Pedido buscarpedidoPorEmail(String idPedido) {
+    public Pedido buscarPedidoPorId(int idPedido) {
         String sql = "SELECT  idPedido, valorPedido, dataPedido FROM tb_pedido WHERE idPedido = ?";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Pedido.class), idPedido);
     }
