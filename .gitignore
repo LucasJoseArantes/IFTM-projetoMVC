@@ -1,2 +1,5 @@
 
 jdbc-mysql/
+*.gz
+*.log
+*.log
