@@ -3,3 +3,4 @@ jdbc-mysql/
 *.gz
 *.log
 *.log
+psw-main/myapp.log
