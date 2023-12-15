@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.edu.iftm.tspi.cadastro.dao.PedidoDAO;
+import br.edu.iftm.tspi.cadastro.domain.Contato;
 import br.edu.iftm.tspi.cadastro.domain.Pedido;
 
 @Controller
@@ -22,12 +23,6 @@ public class PedidosController {
     @Autowired
     private PedidoDAO pedidoDAO;
 
-    // @GetMapping
-    // public String listarPedidos(Model model) {
-    //     List<Pedido> pedidos = pedidoDAO.listarPedidos();
-    //     model.addAttribute("pedidos", pedidos);
-    //     return "paginaPedidos";
-    // }
 
     @GetMapping
     public String listarPedidos(@PathVariable("email") String email, Model model) {
@@ -42,9 +37,9 @@ public class PedidosController {
         pedidoDAO.inserirPedido(pedido);
         List<Pedido> pedidos = pedidoDAO.listarPedidos(pedido.getEmail_contato());
         model.addAttribute("pedidos", pedidos);
-        // model.addAttribute("email", email);
         return "paginaPedidos";
     }
+
 
     
 }

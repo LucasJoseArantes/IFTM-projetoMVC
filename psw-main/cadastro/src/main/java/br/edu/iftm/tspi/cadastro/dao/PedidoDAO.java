@@ -29,26 +29,15 @@ public class PedidoDAO {
         jdbcTemplate.update(sql, Pedido.getIdPedido(), Pedido.getValorPedido(), Pedido.getDataPedido(), Pedido.getEmail_contato());
     }
 
-    // Busca Pedidos pelo nome
-    public List<Pedido> buscarPedidosPorId(int idPedido) {
-        String sql = "SELECT idPedido, valorPedido, dataPedido WHERE idPedido LIKE ?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Pedido.class), "%" + idPedido + "%");
-    }
-
-    public void atualizarpedido(Pedido pedido) throws DataAccessException {
-        String sql = "UPDATE tb_pedido SET valorPedido = ?, dataPedido = ? WHERE idPedido = ?";
-        jdbcTemplate.update(sql, pedido.getValorPedido(), pedido.getDataPedido(), pedido.getIdPedido());
-    }
-
     // Exclui um pedido pelo email
-    public void excluirpedido(String email) throws DataAccessException {
+    public void excluirPedido(int idPedido) throws DataAccessException {
         String sql = "DELETE FROM tb_pedido WHERE idPedido = ?";
-        jdbcTemplate.update(sql, email);
+        jdbcTemplate.update(sql, idPedido);
     }
 
     // Busca um pedido pelo email
     public Pedido buscarPedidoPorId(int idPedido) {
-        String sql = "SELECT  idPedido, valorPedido, dataPedido FROM tb_pedido WHERE idPedido = ?";
+        String sql = "SELECT  idPedido, valorPedido, dataPedido , email_contato FROM tb_pedido WHERE idPedido = ?";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Pedido.class), idPedido);
     }
 

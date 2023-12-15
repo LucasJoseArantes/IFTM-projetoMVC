@@ -67,20 +67,6 @@
                 </form>
             </div>
         </div>
-        <!-- <div class="col-md-6">
-            <form th:action="@{/contatos/pesquisar}" class="mb-3">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="nomePesquisa" class="form-label">Identificador do Pedido</label>
-                        <input type="text" class="form-control" id="nomePesquisa" th:name="nome"
-                            placeholder="Insira o pedido que deseja buscar">
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Pesquisar</button>
-                    </div>
-                </div>
-            </form>
-        </div> -->
     </div>
 
     <div class="container mt-3">
@@ -91,6 +77,7 @@
                     <th scope="col">Valor do Pedido</th>
                     <th scope="col">Data do Pedido</th>
                     <th scope="col">Email do Cliente</th>
+                    <th scope="col">Ação</th>
                 </tr>
           </thead>
           <tbody>
@@ -99,23 +86,19 @@
                   <td th:text="${pedidos.valorPedido}"></td>
                   <td th:text="${#dates.format(pedidos.dataPedido, 'dd/MM/yyyy')}"></td>
                   <td th:text="${pedidos.email_contato}" id="tb_email_contato"></td>
+                  <td>
+                    <a class="btn btn-success" th:href="@{'/pagamentos/' + ${pedidos.idPedido}}">Pagamento</a>
+                  </td>
 
               </tr>
           </tbody>
       </table>
+      <a class="btn btn-dark" th:href="@{'/contatos'}">Retornar para Contatos</a>
   </div>  
 </body>
 
 <script>
     window.addEventListener("DOMContentLoaded", function(){
-
-        // // Obtém o valor do campo de input de e-mail do modelo Thymeleaf
-        // var emailTabela = document.getElementById("tb_email_contato");
-        // const emailContato = emailTabela.textContent.trim();
-
-        // // Preenche o campo de input de e-mail do formulário com o valor do modelo Thymeleaf
-        // document.getElementById("email_contato").value = emailContato;
-        
         // Adiciona um ouvinte de evento ao formulário
         document.getElementById("pedidosForm").addEventListener("submit", function(event) {
             // Evita que o formulário seja enviado automaticamente
